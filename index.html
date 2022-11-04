@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SPAs avec Vue</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div id="app">
+           
+            <!-- Page d'accueil, visibile uniquement si la variable page est égal à 'accueil' -->
+            <div id="accueil" v-if="page == 'accueil'" class="page-wrapper">
+                <h1>Portfolio</h1>
+                <p>
+                    <a href="#" @click.prevent="changerPage('composante')">Aller à la composante Vue</a>
+                </p>
+                <p>
+                    <a href="#" @click.prevent="changerPage('projets', 1)">Aller à la liste de projets</a>
+                </p>
+                
+            </div>
+
+            <!-- Page d'informations, visibile uniquement si la variable page est égal à 'informations' -->
+            <div id="informations" v-if="page == 'informations'" class="page-wrapper">
+                <h1>Page informations</h1>
+                <p>
+                    <!-- page_infos vient de la fonction changerPage() -->
+                    page_infos passé en paramètre: {{ page_infos }}
+                </p>
+            <a href="#" @click.prevent="changerPage('accueil')">Retour</a>
+            </div>
+            <div id="composante" v-if="page == 'composante'" class="page-wrapper-2">
+                <h1>Tic Tac Toe</h1>
+                <div class="tictactoe">
+                    <div 
+                        class="case" 
+                        v-for="(jeton, i) of grille" 
+                        @click="jouer(i)">
+        
+                        {{ jeton }}
+                    </div>
+                </div>
+                <a href="#" @click.prevent="changerPage('accueil')">Retour à l'accueil</a>
+                <p v-show="vainqueur != null">Le vainqueur est : {{ vainqueur }}</p>
+            </div>
+
+            <div id="projets" v-if="page == 'projets'" class="page-wrapper">
+                <h1>Liste de projets</h1>
+                <p v-for="projet of projets">
+                    {{ projet.titre }} 
+                    <br>
+                    {{ projet.date }}
+                </p>
+                <a href="#" @click.prevent="changerPage('accueil')">Retour à l'accueil</a>
+            </div>
+
+        </div>
+        <script src="js/main.js" type="module"></script>
+    </body>
+</html>
